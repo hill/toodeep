@@ -1,6 +1,6 @@
 # toodeep
 
-For when you forget to call some generator without a `.` at the end
+For when you forget to call some generator with a `.` at the end
 
 ---
 

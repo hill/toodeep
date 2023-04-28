@@ -1,7 +1,19 @@
 use std::env;
 use std::fs;
 use std::io;
+use std::path::PathBuf;
 use std::process;
+
+use clap::Parser;
+
+/// Pull the contents of a duplicated nested directory up one level
+#[derive(Parser, Debug)]
+#[command(author, version, about, long_about = None)]
+struct Args {
+    /// Directory to search
+    #[arg(default_value = ".", index = 1)]
+    path: String,
+}
 
 fn move_contents(
     source_dir: std::path::PathBuf,
@@ -16,8 +28,15 @@ fn move_contents(
 }
 
 fn main() -> io::Result<()> {
-    // Get the current directory name
-    let current_dir = env::current_dir()?;
+    let args = Args::parse();
+
+    let mut current_dir = env::current_dir()?;
+    let mut move_outside_current = false;
+    if args.path != "." {
+        current_dir = PathBuf::from(args.path);
+        move_outside_current = true;
+    }
+
     let current_dir_name = current_dir.file_name().as_ref().and_then(|s| s.to_str());
 
     let current_dir_name = match current_dir_name {
@@ -43,8 +62,12 @@ fn main() -> io::Result<()> {
 
     match source_dir {
         Some(source_dir) => {
-            println!("moving {:?} up here...", source_dir);
             move_contents(source_dir.clone(), current_dir.clone())?;
+            if move_outside_current {
+                println!("pulled {:?} to one level to {:?}.", source_dir, current_dir);
+            } else {
+                println!("pulled {:?} up here.", source_dir);
+            }
             fs::remove_dir(source_dir)?;
         }
         None => {

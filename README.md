@@ -41,3 +41,18 @@ FADE OUT.
 ```
 
 This is really a useless cli that you could do with 2 bash commands but i don't care I wanna learn rust! fuck you.
+
+## Usage
+
+```
+$ pwd
+/Users/tomhill/Developer/experiments/toodeep
+
+$ ls
+toodeep/
+
+$ toodeep
+moving "/Users/tomhill/Developer/experiments/toodeep/toodeep" up here...
+
+done!
+```

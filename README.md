@@ -54,5 +54,6 @@ toodeep/
 $ toodeep
 moving "/Users/tomhill/Developer/experiments/toodeep/toodeep" up here...
 
-done!
+$ ls
+contents_of_nested_toodeep.txt
 ```

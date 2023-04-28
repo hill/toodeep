@@ -13,7 +13,7 @@ cargo build --release
 mkdir -p "./dist"
 
 # Create a tar file of the executable
-tar -czvf "./dist/$name-$version.tar.gz" "target/release/$name"
+tar -czvf "./dist/$name-$version.tar.gz" --directory="target/release" "$name"
 
 git tag "v$version"
 
